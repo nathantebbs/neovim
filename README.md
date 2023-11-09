@@ -3,24 +3,7 @@ This is my personal neovim configuration for development. This repository's main
 
 
 ## Current file structure:
-![2023-11-08_17-53](https://github.com/nathantebbs/neovim/assets/111322376/b23bd53c-1755-4472-a6b3-dc28c94546a9)![2023-11-08_17-53](https://github.com/nathantebbs/neovim/assets/111322376/fdfe6fb2-18db-4aca-9423-548c8356414e)
-nvim\
-├── after\
-│   └── plugin\
-│       ├── cmp.lua\
-│       ├── harpoon.lua\
-│       ├── lsp.lua\
-│       ├── telescope.lua\
-│       └── treesitter.lua\
-├── init.lua\
-├── lazy-lock.json\
-├── lua\
-│   ├── keymaps.lua\
-│   ├── options.lua\
-│   ├── pluginlist.lua\
-│   └── plugins.lua\
-└── README.md\
-
+![2023-11-08_17-53](https://github.com/nathantebbs/neovim/assets/111322376/b23bd53c-1755-4472-a6b3-dc28c94546a9)
 
 ### nvim/init.lua
 - Config entry point

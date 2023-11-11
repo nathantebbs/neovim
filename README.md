@@ -21,3 +21,8 @@ This is my personal neovim configuration for development. This repository's main
 ## Going forward
 - I will update this repository whenever I make changes to my nvim config
 - My personal goal with my config is to keep it lightweight but also competative to modern text editing solutions. Because of this the config will stay static for a while once I get it up and running and the changes I do make will be minimal in comparison to a neovim distrobution
+
+
+## Todo
+- Complete javascript, html, and css implementation (ls, lint, formatting)
+- Clean plugins and configs

@@ -67,4 +67,43 @@ return {
         event = "InsertEnter",
         opts = {}
     },
+
+    -- Fomratting
+    {
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                sh = { "beautysh"},
+                bash = { "beautysh"},
+                c = { "clang_format" },
+                cpp = { "clang_format" },
+                java = { "clang_format" },
+                lua = { "stylua" },
+                go = { "gofumpt" },
+                html = { "prettierd" },
+                javascript = { "prettierd" },
+                typescript = { "prettierd" },
+                markdown = { "prettierd" },
+                json = { "prettierd" },
+                yaml = { "prettierd" }
+            }
+        },
+        keys = {
+            { "<C-f>", function()
+                require("conform").format() end, desc = "Format current buffer"
+            }
+        }
+    },
+
+  -- Linting
+  {
+    "mfussenegger/nvim-lint",
+    config = function ()
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function ()
+          require("lint").try_lint()
+        end
+      })
+    end
+  },
 }

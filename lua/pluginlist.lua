@@ -59,6 +59,12 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 		build = ':TSUpdate',
 	},
-	-- Harpoon
+    -- Harpoon
 	"theprimeagen/harpoon",
+
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        opts = {}
+    },
 }

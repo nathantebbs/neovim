@@ -52,4 +52,18 @@ require("mason-lspconfig").setup_handlers({
 			},
 		})
 	end,
+  ["html"] = function()
+    require("lspconfig").html.setup {
+      cmd = { "html-languageserver", "--stdio" },
+      filetypes = { "html", "css" },
+      init_options = {
+        configurationSection = {"html", "css", "javascript"},
+        embeddedLanguages = {
+          css = true,
+          javascript = true,
+        }
+      },
+      settings = {}
+    }
+  end,
 })

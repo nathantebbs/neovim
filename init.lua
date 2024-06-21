@@ -1,5 +1,3 @@
--- TODO: MODULARIZE????
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -16,6 +14,9 @@ vim.g.have_nerd_font = true
 
 -- Make line numbers default
 vim.opt.number = true
+
+-- No black cmd line
+vim.opt.cmdheight = 0
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
@@ -158,9 +159,9 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- AUTO PAIRS
-  { 'numToStr/Comment.nvim', opts = {} },
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
@@ -169,61 +170,7 @@ require('lazy').setup({
     -- this is equalent to setup({}) function
   },
 
-  -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
-  --    require('gitsigns').setup({ ... })
-  -- CATPPUCCIN THEME
-  {
-    'catppuccin/nvim',
-    opts = {
-      flavour = 'mocha',
-      transparent_background = true, -- disables setting the background color.
-      show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-      term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
-      dim_inactive = {
-        enabled = false, -- dims the background color of inactive window
-        shade = 'dark',
-        percentage = 0.15, -- percentage of the shade to apply to the inactive window
-      },
-      no_italic = false, -- Force no italic
-      no_bold = false, -- Force no bold
-      no_underline = false, -- Force no underline
-      styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-        comments = { 'italic' }, -- Change the style of comments
-        conditionals = { 'italic' },
-        loops = {},
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-        operators = {},
-        -- miscs = {}, -- Uncomment to turn off hard-coded styles
-      },
-      color_overrides = {},
-      custom_highlights = {},
-      default_integrations = true,
-      integrations = {
-        cmp = true,
-        gitsigns = true,
-        nvimtree = true,
-        treesitter = true,
-        notify = false,
-        mini = {
-          enabled = true,
-          indentscope_color = '',
-        },
-        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-      },
-    },
-    config = function()
-      vim.cmd.colorscheme 'catppuccin'
-    end,
-  },
-  -- See `:help gitsigns` to understand what the configuration keys do
+  -- GIT SIGNS
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -610,6 +557,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        go = { 'gofumpt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -736,13 +684,13 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
+    'Mofiqul/adwaita.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'adwaita'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -750,7 +698,6 @@ require('lazy').setup({
   },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
@@ -831,7 +778,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',

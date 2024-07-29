@@ -4,4 +4,9 @@
 -- See the kickstart.nvim README for more information
 return {
   require 'custom.plugins.autotag',
+  require 'custom.plugins.undotree',
+  require 'custom.plugins.harpoon',
+  require 'custom.plugins.lualine',
+  require 'custom.plugins.colorscheme',
+  require 'custom.plugins.vimkitty',
 }

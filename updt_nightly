@@ -63,7 +63,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         tar xzvf "$DEST/arm64/nvim-macos-arm64.tar.gz" -C "$DEST/arm64"
 
         # Move extracted folder to a standard name
-        mv "$DEST/arm64/nvim-macos" "$DEST/arm64/neovim"
+        mv "$DEST/arm64/nvim-macos-arm64" "$DEST/arm64/neovim"
 
         echo -e "${GREEN}Installation complete!${NC}"
         echo -e "${CYAN}Run Neovim with: $DEST/arm64/neovim/bin/nvim${NC}"
@@ -75,4 +75,3 @@ else
     echo -e "${RED}Unsupported OS type: $OSTYPE${NC}"
     exit 1
 fi
-

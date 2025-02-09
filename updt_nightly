@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# Author: Nathan Tebbs
+# Purpose: Fetch and install the newest Neovim nightly build for macOS
+# Edited: Feb 8th, 2025
+
+# Steps found @: https://github.com/neovim/neovim/releases/
+
+# Prerequisites:
+# - curl
+# - tar
+
+# Text Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+NC='\033[0m' # Reset color
+
+PROC=$(uname -m)
+
+X86_URL="https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz"
+ARM64_URL="https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz"
+
+DEST="./nightly"
+
+# Create directory structure
+mkdir -p "$DEST/x86"
+mkdir -p "$DEST/arm64"
+
+# Check OS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if echo "$PROC" | grep -q "x86_64"; then
+        echo -e "${YELLOW}Detected x86_64 architecture. Downloading Neovim...${NC}"
+        curl -L -o "$DEST/x86/nvim-macos-x86_64.tar.gz" "$X86_URL"
+
+        if [[ $? -eq 0 ]]; then
+            echo -e "${GREEN}Download complete: $DEST/x86/nvim-macos-x86_64.tar.gz${NC}"
+        else
+            echo -e "${RED}Download failed.${NC}"
+            exit 1
+        fi
+
+    elif echo "$PROC" | grep -q "arm"; then
+        echo -e "${YELLOW}Detected ARM64 architecture. Downloading Neovim...${NC}"
+        curl -L -o "$DEST/arm64/nvim-macos-arm64.tar.gz" "$ARM64_URL"
+
+        if [[ $? -eq 0 ]]; then
+            echo -e "${GREEN}Download complete: $DEST/arm64/nvim-macos-arm64.tar.gz${NC}"
+        else
+            echo -e "${RED}Download failed.${NC}"
+            exit 1
+        fi
+
+        # Remove macOS extended attributes (fixes "damaged app" issue)
+        if [[ -f "$DEST/arm64/nvim-macos-arm64.tar.gz" ]]; then
+            xattr -c "$DEST/arm64/nvim-macos-arm64.tar.gz"
+        fi
+
+        # Extract Neovim
+        tar xzvf "$DEST/arm64/nvim-macos-arm64.tar.gz" -C "$DEST/arm64"
+
+        # Move extracted folder to a standard name
+        mv "$DEST/arm64/nvim-macos" "$DEST/arm64/neovim"
+
+        echo -e "${GREEN}Installation complete!${NC}"
+        echo -e "${CYAN}Run Neovim with: $DEST/arm64/neovim/bin/nvim${NC}"
+    else
+        echo -e "${RED}Unsupported CPU type: $PROC${NC}"
+        exit 1
+    fi
+else
+    echo -e "${RED}Unsupported OS type: $OSTYPE${NC}"
+    exit 1
+fi
+

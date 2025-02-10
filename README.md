@@ -8,17 +8,20 @@ _NOTE:_ This repository is under active development. I am still learning shell s
 
 Usage
 --
-Clone repo:
+
+*Clone repo:*
 ```bash
 git clone https://github.com/nathantebbs/neovim.git
 ```
 
-Run installation script:
+For the instant access to LSP support I'm currently using nightly neovim builds. I have included a script to fetch the latest nightly build, currently only for MacOS.
+
+*Run installation script:*
 ```bash
 ./updt_nightly
 ```
 
-(OPTIONAL) create custom alias for nightly build
+*create custom alias for nightly build:*
 ```bash
 alias nv=~/.config/nvim/nightly/arm64/neovim/bin/nvim
 ```

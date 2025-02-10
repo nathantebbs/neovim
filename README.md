@@ -2,7 +2,7 @@
 
 Author: Nathan Tebbs  
 Purpose: My personal neovim configuration and qol scripts  
-Edited: Feb 8th, 2025  
+Edited: Feb 10th, 2025  
 
 Usage
 --

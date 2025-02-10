@@ -27,12 +27,11 @@ ARM64_URL="https://github.com/neovim/neovim/releases/download/nightly/nvim-macos
 DEST="./nightly"
 
 # Create directory structure
-mkdir -p "$DEST/x86"
-mkdir -p "$DEST/arm64"
 
 # Check OS
 if [[ "$OSTYPE" == "darwin"* ]]; then
     if echo "$PROC" | grep -q "x86_64"; then
+	mkdir -p "$DEST/x86"
         echo -e "${YELLOW}Detected x86_64 architecture. Downloading Neovim...${NC}"
         curl -L -o "$DEST/x86/nvim-macos-x86_64.tar.gz" "$X86_URL"
 
@@ -53,6 +52,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	echo -e "${GREEN}Installation complete!${NC}"
         echo -e "${CYAN}Run Neovim with: $DEST/arm64/neovim/bin/nvim${NC}"
     elif echo "$PROC" | grep -q "arm"; then
+	mkdir -p "$DEST/arm64"
         echo -e "${YELLOW}Detected ARM64 architecture. Downloading Neovim...${NC}"
         curl -L -o "$DEST/arm64/nvim-macos-arm64.tar.gz" "$ARM64_URL"
 

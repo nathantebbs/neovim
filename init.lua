@@ -1,19 +1,31 @@
 -- Author: Nathan Tebbs
 -- Edited: Feb 10th, 2025
 
+-- BASIC SETTINGS:
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 vim.g.have_nerd_font = true
+vim.g.noexpandtab = true
+
+
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.o.termguicolors = true
-
--- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
-
--- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
+vim.opt.breakindent = true
+vim.opt.undofile = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.signcolumn = 'yes'
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.inccommand = 'split'
+vim.opt.cursorline = true
+vim.opt.scrolloff = 10
+vim.opt.tabstop = 8
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.termguicolors = true
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -21,43 +33,8 @@ vim.schedule(function()
     vim.opt.clipboard = 'unnamedplus'
 end)
 
--- Enable break indent
-vim.opt.breakindent = true
 
--- Save undo history
-vim.opt.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
-
--- Decrease update time
-vim.opt.updatetime = 250
-
--- Decrease mapped sequence wait time
-vim.opt.timeoutlen = 300
-
--- Configure how new splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
-
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
-
-vim.opt.tabstop = 8
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.g.noexpandtab = true
-
+-- KEYMAPS:
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
@@ -99,17 +76,73 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup
 {
-    -- Colorscheme
+    -- COLORSCHEME:
     {
-	"dgox16/oldworld.nvim",
-	lazy = false,
+	"rebelot/kanagawa.nvim",
 	priority = 1000,
-	opts = {
-	    variant = "oled"
-	},
-	init = function()
-	    vim.cmd.colorscheme 'oldworld'
+	lazy = false,
+	opts = {},
+	init = function() 
+	    vim.cmd("colorscheme kanagawa")
 	end,
-    }
+    },
 
+    -- GENERAL:
+    {
+	"folke/which-key.nvim",
+	event = "VeryLazy",
+	opts = {},
+	keys = {
+	    {
+		"<leader>?",
+		function()
+		    require("which-key").show({ global = false })
+		end,
+		desc = "Buffer Local Keymaps (which-key)",
+	    },
+	},
+    },
+
+    {
+	"folke/snacks.nvim",
+	priority = 1000,
+	lazy = false,
+	---@type snacks.Config
+	opts = {
+	    bigfile = { enabled = true },
+	    dashboard = { enabled = true },
+	    explorer = { enabled = true },
+	    indent = { enabled = true },
+	    input = { enabled = true },
+	    picker = { enabled = true },
+	    notifier = { enabled = true },
+	    quickfile = { enabled = true },
+	    scope = { enabled = true },
+	    scroll = { enabled = false },
+	    statuscolumn = { enabled = true },
+	    words = { enabled = true },
+	},
+	keys = {
+	    {"<leader>ff", function() Snacks.picker.smart() end, desc="Smart Find Files"},
+	    {"<leader>.", function() Snacks.picker.grep() end, desc="Find Words In Cur Buff"},
+	    {"<leader>,", function() Snacks.picker.buffers() end, desc="Find Words In Cur Buff"},
+	},
+    },
+
+    -- LSP:
+    { "neovim/nvim-lspconfig" },
+
+
+    -- ICONS:
+    { "echasnovski/mini.icons", opts = {} },
+
+    {  "nvim-tree/nvim-web-devicons", opts = {} },
+
+    -- SYNTAX HIGHLIGHTING
+    { "nvim-treesitter/nvim-treesitter", opts = {} },
 }
+
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.lua_ls.setup{}
+require'lspconfig'.clangd.setup{}
+require'lspconfig'.ts_ls.setup{}

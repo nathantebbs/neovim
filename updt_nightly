@@ -2,7 +2,7 @@
 
 # Author: Nathan Tebbs
 # Purpose: Fetch and install the newest Neovim nightly build for macOS
-# Edited: Feb 8th, 2025
+# Edited: Feb 10th, 2025
 
 # Steps found @: https://github.com/neovim/neovim/releases/
 
@@ -43,6 +43,15 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
             exit 1
         fi
 
+	if [[ -f "$DEST/x86/nvim-macos-x86_64.tar.gz" ]]; then
+	    xattr -c "$DEST/x86/nvim-macos-x86_64.tar.gz"
+	fi
+
+	tar xzvf "$DEST/x86/nvim-macos-x86_64.tar.gz" -C "$DEST/x86"
+	mv "$DEST/x86/nvim-macos-x86_64" "$DEST/x86/neovim"
+
+	echo -e "${GREEN}Installation complete!${NC}"
+        echo -e "${CYAN}Run Neovim with: $DEST/arm64/neovim/bin/nvim${NC}"
     elif echo "$PROC" | grep -q "arm"; then
         echo -e "${YELLOW}Detected ARM64 architecture. Downloading Neovim...${NC}"
         curl -L -o "$DEST/arm64/nvim-macos-arm64.tar.gz" "$ARM64_URL"

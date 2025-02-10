@@ -16,4 +16,4 @@ Run installation script:
 ./updt_nightly
 ```
 
-__NOTE: This repository is under active developement__
+__NOTE:__ This repository is under active development. I am still learning shell scripting, lua, neovim, etc. So help is appreciated, thanks!
